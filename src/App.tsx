@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import  Feedback from './component/Feedback'
 
-const App: React.FC = () => {
+
+type FeedbackProps = {
+  Message?: string,
+  IsSuccessfullProp ?: boolean 
+  
+}
+interface Props {
+  Message?: string,
+  IsSuccessfullProp ?: boolean 
+}
+
+
+
+
+export class App extends React.Component<{IsSuccessfullProp ?: boolean}, {IsSuccessfull : boolean} > {
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      IsSuccessfull: true
+    };
+
+    this.toggleSuccess = this.toggleSuccess.bind(this);
+  }
+  
+  toggleSuccess() {
+    if(this.state.IsSuccessfull === true){
+    this.setState({ IsSuccessfull: false });
+    }
+    else{
+      this.setState({ IsSuccessfull: true });
+    }
+
+  }
+  
+
+  render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Feedback  IsSuccessfullProp={this.state.IsSuccessfull} /> 
+      <button onClick={this.toggleSuccess}>Toggle Screen</button>
     </div>
   );
+  }
 }
 
 export default App;
